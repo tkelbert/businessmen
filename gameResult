@@ -1,0 +1,78 @@
+import sys
+cv = 0 
+grid3 = [['X', 'O', 'O'],
+            ['X', 'X', 'O'],
+            ['O', 'O', 'X']]
+
+grid4 = [['X', 'X', 'X'],
+            ['O', 'O', 'X'],
+            ['O', 'O', 'X']]
+grid5 = [['X', 'O', 'X'],
+            ['O', 'X', 'O'],
+            ['X', 'O', 'X']]
+
+
+def main():
+    print(check_winner(grid3))
+    print(check_winnero(grid3))
+    print(draw(grid3))
+    
+
+def draw(grid):
+    jj = 9
+    al = str('1')
+    for i, row in enumerate(grid):
+        for j, value in enumerate(row):
+            if grid[i][j] != al:
+                jj = jj - 1
+    if jj == 0:
+        sys.exit('draw')
+
+def check_winner(vb):
+    # Check rows
+        for row in vb:
+            if row == ['O', 'O', 'O']: https://github.com/tkelbert/businessmen.git
+                return 'O'
+
+    # Check columns
+        for i in range(3):
+            if vb[0][i] == 'O' and vb[1][i] == 'O' and vb[2][i] == 'O':
+                return 'O'
+
+    # Check diagonals
+        if vb[0][0] == 'O' and vb[1][1] == 'O' and vb[2][2] == 'O':
+            return 'O'or
+        if vb[0][2] == 'O' and vb[1][1] == 'O' and vb[2][0] == 'O':
+            return 'O'
+
+    # If no winning condition is found, return None
+        return None
+    
+def check_winnero(vb):
+    # Check rows
+    for row in vb:
+        if row == ['X', 'X', 'X']:
+            return 'X'
+
+    # Check columns
+    for i in range(3):
+        if vb[0][i] == 'X' and vb[1][i] == 'X' and vb[2][i] == 'X':
+            return 'X'
+
+    # Check diagonals
+    if vb[0][0] == 'X' and vb[1][1] == 'X' and vb[2][2] == 'X':
+        return 'X'
+
+    #check opposite diagonal
+    if vb[0][2] == 'X' and vb[1][1] == 'X' and vb[2][0] == 'X':
+        return 'X'
+
+    # If no winning condition is found, return None
+    return None 
+
+
+
+
+
+
+main()
