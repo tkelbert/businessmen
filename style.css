@@ -1,0 +1,13 @@
+#boardGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.square {
+    width: 200px;
+    height: 200px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 14em;
+}
