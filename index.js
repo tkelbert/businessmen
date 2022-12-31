@@ -1,6 +1,6 @@
 "use strict"
 let usersTurn = true
-const serverUrl = "http://localhost:8000"
+const serverUrl = "http://localhost:5050"
 
 
 //let the user pick x or o
@@ -27,7 +27,6 @@ class square {
     }
 
     handleClick = () => {
-        console.log("clicked")
         //check if it's user's turn
         if(!usersTurn) return null;
 
@@ -42,7 +41,7 @@ class square {
         this.element.innerHTML = (`${usersChoice}`)
 
         //check for victory
-        victoryCheck(this.index, usersTurn)
+        // victoryCheck(this.index, usersTurn)
 
     
         //send the clientBoard to the server
@@ -51,6 +50,7 @@ class square {
         .then((newBoard) => {
             console.log("new board", newBoard)
             //update board to match server response
+            newBoard = newBoard["board"]
             let numberOfChanges = 0;
             let changed;
             for(let x = 0; x <= 8; x++){
@@ -63,7 +63,7 @@ class square {
             }
             if(numberOfChanges > 1){ throw new Error("The server returned an board with too many changes: ", newBoard)}
 
-            victoryCheck(changed, usersTurn)
+            // victoryCheck(changed, usersTurn)
 
             usersTurn = true;
         })
@@ -79,7 +79,10 @@ for(let x = 0; x <= 8; x++){
 }
 
 const sendToSever = () => {
-    let boardJson = { "board": [] };
+    let boardJson = { 
+        "board": [], 
+        "userChoice" : usersChoice
+    };
     for(const sq of clientBoard){
         boardJson.board.push(sq.text)
     }
@@ -92,9 +95,11 @@ const sendToSever = () => {
             body :  JSON.stringify(boardJson)
         })
         .then((response) => {
+            console.log("got response")
             return response.json()
         })
         .then((result) => {
+            console.log("parsed response", result)
             //check if result is in proper format//////////
             resolve(result)
         })
@@ -104,20 +109,4 @@ const sendToSever = () => {
     })
 
     return promise;
-}
-
-//victory checking
-const victoryCheck = (indexChanged, usrTurn) => {
-    //just check around the new element
-    //draw lines from wherever the index is, to the end, count them up, if it's 3, victory
-    //horizontal
-
-    //vertical
-
-    //diagonal positive
-
-    //diagonal negative
-
-
-    //if victory, show victory screen for user or bot
 }

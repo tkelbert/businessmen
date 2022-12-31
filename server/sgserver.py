@@ -1,6 +1,7 @@
 import http.server
 import json
 import os
+import random
 
 
 class APIHandler(http.server.BaseHTTPRequestHandler):
@@ -45,9 +46,42 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
         # Print the request data
         print(request_data)
 
-        # Send a 200 OK response
+        # check if board is full(or later check if there's a win condition)
+        full = True
+        for sq in request_data['board']:
+            if sq == "":
+                full = False
+                break
+
+        if (full):
+            self.send_response(288)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            return
+
+        # Pick a random empty square to add a value to
+        rand = random.randint(0, 8)
+        while request_data['board'][rand] != "":
+            rand = random.randint(0, 8)
+
+        botsChoice = 'E'
+        if request_data['userChoice'] == "X":
+            botsChoice = "O"
+        else:
+            botsChoice = "X"
+        request_data['board'][rand] = botsChoice
+
+        print("moded", request_data)
+
+        # Serialize the modified data as a JSON string
+        modified_data = json.dumps(request_data)
+
+        # Send a 200 OK response with the modified data
         self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
         self.end_headers()
+        modified_data_bytes = bytes(modified_data, 'utf-8')
+        self.wfile.write(modified_data_bytes)
 
 
 ip = 'localhost'
