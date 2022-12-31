@@ -1,13 +1,32 @@
+main {
+    text-align: center;
+}
+div {
+    margin: auto;
+}
+
+#choicesBox {
+    display: flex;
+    font-size: 2em;
+    margin-bottom: 5em;
+}
+
 #boardGrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
+    width: 450px;
+    height: 450px;
 }
 
 .square {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     font-family: 'Times New Roman', Times, serif;
-    font-weight: bold;
-    font-size: 14em;
+    font-size: 8em;
+    border: 5px solid black;
+    text-align: center;
+}
+.square > *{
+    margin: auto;
 }

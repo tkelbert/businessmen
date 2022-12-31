@@ -50,5 +50,8 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
 
 
-server = http.server.HTTPServer(('localhost', 8000), APIHandler)
+ip = 'localhost'
+# ip = '172.31.1.21'
+port = 5050
+server = http.server.HTTPServer((ip, port), APIHandler)
 server.serve_forever()
