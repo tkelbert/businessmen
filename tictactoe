@@ -1,0 +1,99 @@
+
+
+counter = 0
+
+global grid
+grid = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+
+def main():
+    print('a')
+    X = 'X'
+    ff = 0
+    for fj in range(9):
+        ff =+ 1
+        print(ff)
+        movex()
+        
+        if grid == [['X','X','X'],['X','X','X'],['X','X','X']]:
+            print('you filled the board')
+        else:
+            print('fuck you')
+def filler():
+    # Run the 'prompt.py' script and store the child process in a variable
+    child = subprocess.Popen(['python', 'prompt.py'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    # Send the input string followed by a newline character as input to the child process
+    input_data = '\n'
+
+    # Run the 'prompt.py' script and get the output and error
+    output, error = child.communicate(input=input_data)
+
+    # Print the output and error
+    print(output)
+    print(error)
+
+# def movex():
+#     i = int(input("Column: "))
+#     j = int(input("Row:"))
+#     vb[i][j] = X
+
+#     if vb[i][j] =
+#         counter += 1
+#         print(vb)
+
+
+def movex():
+    jake = int(input("Row:")) - 1
+    snake = int(input("Column: ")) - 1
+    grid[jake][snake] = 'X'
+
+
+
+    for i in range(3):
+        row = []
+        for j in range(9):
+            X = grid[jake-1][snake-1]
+            grid[jake][snake] = 'X'
+
+
+    print(grid)
+
+""" def check_winner(vb):
+    # Check rows
+    for row in vb:
+        if row == ['O', 'O', 'O']:
+            return 'O'
+
+    # Check columns
+    for i in range(3):
+        if vb[0][i] == 'O' and vb[1][i] == 'O' and vb[2][i] == 'O':
+            return 'O'
+
+    # Check diagonals
+    if vb[0][0] == 'O' and vb[1][1] == 'O' and vb[2][2] == 'O':
+        return 'O'
+    if vb[0][2] == 'O' and vb[1][1] == 'O' and vb[2][0] == 'O':
+        return 'O'
+
+    # If no winning condition is found, return None
+    return None
+
+def check_winnero(vb):
+    # Check rows
+    for row in vb:
+        if row == ['X', 'X', 'X']:
+            return 'X'
+
+    # Check columns
+    for i in range(3):
+        if vb[0][i] == 'X' and vb[1][i] == 'X' and vb[2][i] == 'X':
+            return 'X'
+
+    # Check diagonals
+    if vb[0][0] == 'X' and vb[1][1] == 'X' and vb[2][2] == 'X':
+        return 'X'
+
+    # If no winning condition is found, return None
+    return None """
+
+main()
