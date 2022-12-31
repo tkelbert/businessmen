@@ -6,6 +6,7 @@ import random
 
 class APIHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
+
         # Determine the file to send based on the request path
         if self.path == '/':
             file_to_send = 'index.html'
@@ -32,10 +33,14 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
         # Send a 200 OK response with the file contents
         self.send_response(200)
         self.send_header('Content-Type', content_type)
+        # get it past cors
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Credentials', 'true')
         self.end_headers()
         self.wfile.write(file_contents)
 
     def do_POST(self):
+
         # Read the request body
         content_length = int(self.headers['Content-Length'])
         request_body = self.rfile.read(content_length)
@@ -79,6 +84,9 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
         # Send a 200 OK response with the modified data
         self.send_response(200)
         self.send_header('Content-Type', 'application/json')
+        # get it past cors
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Credentials', 'true')
         self.end_headers()
         modified_data_bytes = bytes(modified_data, 'utf-8')
         self.wfile.write(modified_data_bytes)
