@@ -1,0 +1,145 @@
+import sys
+cv = 0 
+
+dictionary ={ 
+    "board" : [ "O", "", "", "X", "X", "X", "", "", "O"],
+  "userChoice" : "O"
+  }
+
+iboard = dictionary['board']
+grid = [iboard[i:i+3] for i in range(0, len(iboard), 3)]  
+
+def board(dict):
+    for key, value in dictionary.items():
+        print(f"{key}: {value}")
+    iboard = dictionary['board']
+    print(iboard)
+    
+    
+    grid = [iboard[i:i+3] for i in range(0, len(iboard), 3)]
+
+    return(grid)
+
+    
+def reconvert(dicti):
+    
+    # Create a dictionary from a list of tuples
+   
+    dicti = dict([("board", iboard), ("userChoice", 'O'), ("victorY", result)])
+    print(dicti)
+    return((dicti))
+
+
+
+
+def main():
+    print(check_winnero(grid))
+    if check_winner(grid) == 'O':
+        print('O is the winner')
+        global result
+        result = 'O'
+    if check_winnero(grid) == 'X':
+        result = 'X'
+        print('x is the winner')
+    if draw(grid) == 'd':
+        print('draw')
+        result = 'D'
+    reconvert(iboard)
+
+
+    
+    #I'll pass these dictionaries to you
+#{ "board" : [ "", "", "", "X", "O", "", "", "", "O"],
+#  "userChoice" : "O" }
+
+#you'll pass this back
+#{ "board" : [ "", "", "", "X", "O", "", "X", "", "O"],
+#  "userChoice" : "O" ,
+#  "victory" : "server" }
+
+
+
+def draw(grid):
+    jj = 9
+    al = ''
+    for i, row in enumerate(grid):
+        for j, value in enumerate(row):
+            if grid[i][j] != al:
+                jj = jj - 1
+    if jj == 0:
+        return(d)
+
+
+
+
+def check_winner(vb):
+    # Check rows
+        for row in vb:
+            if row == ['O', 'O', 'O']: 
+                return 'O'
+
+    # Check columns
+        for i in range(3):
+            if vb[0][i] == 'O' and vb[1][i] == 'O' and vb[2][i] == 'O':
+                return 'O'
+
+    # Check diagonals
+        if vb[0][0] == 'O' and vb[1][1] == 'O' and vb[2][2] == 'O':
+            return 'O'
+        if vb[0][2] == 'O' and vb[1][1] == 'O' and vb[2][0] == 'O':
+            return 'O'
+
+    # If no winning condition is found, return None
+        return None
+    
+def check_winnero(vb):
+    # Check rows
+    for row in vb:
+        if row == ['X', 'X', 'X']:
+            return 'X'
+
+    # Check columns
+    for i in range(3):
+        if vb[0][i] == 'X' and vb[1][i] == 'X' and vb[2][i] == 'X':
+            print('W!')
+            return 'X'
+
+    # Check diagonals
+
+    if vb[0][0] == 'X' and vb[1][1] == 'X' and vb[2][2] == 'X':
+        print('W!')
+        return 'X'
+
+    #check opposite diagonal
+    if vb[0][2] == 'X' and vb[1][1] == 'X' and vb[2][0] == 'X':
+        print('W!')
+        return 'X'
+
+    # If no winning condition is found, return None
+    return None 
+
+
+
+
+
+
+
+'''def test_main():
+    grid3 = [['O', 'O', 'O'],
+            ['X', 'X', 'O'],
+            ['O', 'O', 'X']]
+    assert main(grid3) == 'O wins, x is retarded'
+    
+    # Test that X wins
+    grid4 = [['X', 'X', 'X'],
+            ['O', 'O', 'X'],
+            ['O', 'O', 'X']]
+    assert main(grid4) == 'X wins, o is retarded'
+    
+    # Test that the game is a draw
+    grid5 = [['X', 'O', 'X'],
+            ['O', 'X', 'O'],
+            ['X', 'O', 'X']]
+    assert main(grid5) == 'draw'''
+
+main()
