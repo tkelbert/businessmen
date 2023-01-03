@@ -60,9 +60,18 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
                 break
 
         if (full):
-            self.send_response(288)
+            # Serialize the modified data as a JSON string
+            modified_data = json.dumps(request_data)
+
+            # Send a 206 response meaning full board
+            self.send_response(206)
             self.send_header('Content-Type', 'application/json')
+            # get it past cors
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Access-Control-Allow-Credentials', 'true')
             self.end_headers()
+            modified_data_bytes = bytes(modified_data, 'utf-8')
+            self.wfile.write(modified_data_bytes)
             return
 
         # Pick a random empty square to add a value to

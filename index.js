@@ -112,7 +112,7 @@ const sendToSever = () => {
             body :  JSON.stringify(boardJson)
         })
         .then((response) => {
-            console.log("got response")
+            console.log("got response", response)
             return response.json()
         })
         .then((result) => {
