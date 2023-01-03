@@ -2,6 +2,7 @@ import http.server
 import json
 import os
 import random
+import asyncio
 
 
 class APIHandler(http.server.BaseHTTPRequestHandler):
@@ -54,7 +55,7 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
         # check if board is full(or later check if there's a win condition)
         full = True
         for sq in request_data['board']:
-            if sq == "":
+            if sq == " ":
                 full = False
                 break
 
@@ -66,7 +67,7 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
 
         # Pick a random empty square to add a value to
         rand = random.randint(0, 8)
-        while request_data['board'][rand] != "":
+        while request_data['board'][rand] != " ":
             rand = random.randint(0, 8)
 
         botsChoice = 'E'
@@ -75,8 +76,6 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
         else:
             botsChoice = "X"
         request_data['board'][rand] = botsChoice
-
-        print("moded", request_data)
 
         # Serialize the modified data as a JSON string
         modified_data = json.dumps(request_data)
@@ -92,8 +91,12 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
         self.wfile.write(modified_data_bytes)
 
 
-ip = 'localhost'
-# ip = '172.31.1.21'
-port = 5050
-server = http.server.HTTPServer((ip, port), APIHandler)
-server.serve_forever()
+async def runServer():
+    ip = 'localhost'
+    # ip = '172.31.1.21'
+    port = 5050
+    server = http.server.HTTPServer((ip, port), APIHandler)
+    await server.serve_forever()
+
+
+asyncio.run(runServer())

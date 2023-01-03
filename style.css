@@ -30,3 +30,7 @@ div {
 .square > *{
     margin: auto;
 }
+
+#victoryText {
+    font-size: 12em;
+}
